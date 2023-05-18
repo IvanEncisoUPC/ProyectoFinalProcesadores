@@ -6,11 +6,10 @@
 
 class Tarjeta{
     private: 
-        File file;
-        const char*filename;
-
+        File dataFile;
+        const char*filename = "register.csv";
+        
     public: 
-    Tarjeta(const char*filename);
 
     bool begin();
     bool comprobar();
