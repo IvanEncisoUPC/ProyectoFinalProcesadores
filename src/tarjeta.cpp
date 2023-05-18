@@ -10,14 +10,14 @@ class Tarjeta{
         const char*filename;
 
     public: 
-    SD(const char*filename);
+    Tarjeta(const char*filename);
 
     bool begin();
-    //bool comprobar();
+    bool comprobar();
     void abrir();
-    void writeData(String hora, String fecha, float pres, float temp);
-    void closeFile();
-    void getMaxValues(float & maxPres, float & maxTemp);
+    void escribir(String hora, String fecha, float pres, float temp);
+    void cerrar();
+    void maximos(float & maxPres, float & maxTemp);
 };
 
 #endif

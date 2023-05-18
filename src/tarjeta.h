@@ -1,30 +1,36 @@
 #include "Tarjeta.h"
 
+Tarjeta::Tarjeta(const char* filename) {
+  this->filename = filename;
+}
+
 bool Tarjeta::begin() {
-    if (!Tarjeta.begin()){
-        return false;
-    }
-    return true;
+  return SD.begin();
 }
 
-//bool Tarjeta :: comprobar(){
-//    
-//}
-
-void Tarjeta::abrir(filename){
-    file = SD.open("filename",FILE_WRITE);
-    if(!file){
-        return false;
-    }
-    return true;
+bool Tarjeta::comprobar() {
+  return SD.exists(filename);
 }
 
-void Tarjeta :: writeData (string hora, string fecha, float pres, float temp){
-    file.print(hora);
-    file.print(";");
-    file.print(fecha);
-    file.print(";");
-    file.print(pres);
-    file.print(";");
-    file.print(temp);
+void Tarjeta::abrir() {
+  file = SD.open(filename, FILE_WRITE);
+}
+
+void Tarjeta::escribir(String hora, String fecha, float pres, float temp) {
+  String datos;
+  data.concat(hora);
+  data.concat(";");
+  data.concat(fecha);
+  data.concat(";");
+  data.concat(pres);
+  data.concat(";");
+  data.concat(temp);
+  
+  if (file) {
+    file.println(datos);
+  }
+}
+
+void Tarjeta::cerrar() {
+  file.close();
 }
