@@ -1,0 +1,58 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_BMP280.h>
+
+// Initialize the OLED display and the BMP280 sensor
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+Adafruit_BMP280 bmp;
+
+void setup() {
+  // Start the serial communication
+  Serial.begin(115200);
+
+  // Initialize the OLED display and the BMP280 sensor
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  bmp.begin(0x76);
+
+  // Clear the OLED display and show a message
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0,0);
+  display.println("BMP280 + SSD1306");
+  display.display();
+  delay(2000);
+}
+
+void loop() {
+  // Read the temperature and pressure from the BMP280 sensor
+  float temperature = bmp.readTemperature();
+  float pressure = bmp.readPressure() / 100.0;
+
+  // Print the temperature and pressure to the serial monitor
+  Serial.print("Temperature = ");
+  Serial.print(temperature);
+  Serial.println(" *C");
+  Serial.print("Pressure = ");
+  Serial.print(pressure);
+  Serial.println(" hPa");
+
+  // Display the temperature and pressure on the OLED display
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+
+
+  display.setCursor(0,0);
+  display.println("Temp:");
+  display.print(temperature);
+  display.println(" C");
+  display.println("Pres:");
+  display.print(pressure);
+  display.println(" hPa");
+  display.display();
+  delay(1000);
+}
