@@ -1,39 +1,24 @@
-#include "Tarjeta.h"
+#ifndef TGARJETA_H
+#define TARJETA_H
 
-Tarjeta::Tarjeta(const char* filename) {
-  this->filename = filename;
-}
+#include <SD.h>
 
-bool Tarjeta::begin() {
-  if (!SD.begin()) {
-    return false;
-  }
-  return true;
-}
+class Tarjeta{
+    private:
 
-bool Tarjeta::comprobar() {
-  return SD.exists(filename);
-}
+        File archivo;
 
-void Tarjeta::abrir() {
-  file = SD.open(filename, FILE_WRITE);
-}
+    public:
+        //Constructor
+        Tarjeta();
 
-void Tarjeta::escribir(String hora, String fecha, float pres, float temp) {
-  String datos;
-  data.concat(fecha);
-  data.concat(";");
-  data.concat(hora);
-  data.concat(";");
-  data.concat(pres);
-  data.concat(";");
-  data.concat(temp);
-  
-  if (file) {
-    file.println(datos);
-  }
-}
+        //Funciones
+        bool init();
+        bool comprobar(const char* archivo);
+        void abrir(const char* archivo);
+        //void cerrar(string archivo): //Esta funcionalidad no es necesaria ya que no necesitamos cerrar el archivo unicamente abriro.
+        void escribir(const string & datos);
+        void obtenerMaximos(double& maxTemperatura, double& maxPresion);
+};
 
-void Tarjeta::cerrar() {
-  file.close();
-}
+#endif
