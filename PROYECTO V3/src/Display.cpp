@@ -1,6 +1,6 @@
-#include "display.h"
+#include "Display.h"
 
-void Display::init() {
+void Display::iniciar() {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
   display.setTextSize(1);
@@ -11,23 +11,23 @@ void Display::init() {
   delay(2000);
 }
 
-void Display::clearreset(){
-    display.clearDisplay();
-    display.setTextSize(2);
-    display.setTextColor(SSD1306_WHITE);
-    display.setCursor(0,0);
+void Display::limpiar() {
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0,0);
 }
 
-void Display::showTemperature(float temperature) {
+void Display::mostrarTemperatura(float temperatura) {
   display.println("Temp: ");
-  display.print(temperature);
+  display.print(temperatura);
   display.println(" C");
   display.display();
 }
 
-void Display::showPressure(float pressure) {
+void Display::mostrarPresion(float presion) {
   display.println("Pres: ");
-  display.print(pressure);
+  display.print(presion);
   display.println(" hPa");
   display.display();
 }
